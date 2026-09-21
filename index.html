@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
+    <title>Para vos,Bella Durmiente 🌻</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main id="app">
+
+        <!-- ========================= -->
+        <!--      PANTALLA INICIAL      -->
+        <!-- ========================= -->
+
+        <section id="intro">
+
+            <div class="intro-content">
+
+                <div class="flower-icon">
+                    🌻
+                </div>
+
+                <h1>
+                    Para ti<br>
+                    Bella Durmiente
+                </h1>
+
+                <button id="start" type="button">
+                    Toca para comenzar
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ========================= -->
+        <!--      ANIMACIÓN / CANVAS    -->
+        <!-- ========================= -->
+
+        <canvas id="canvas"></canvas>
+
+
+        <!-- ========================= -->
+        <!--          MENSAJE           -->
+        <!-- ========================= -->
+
+        <div id="message">
+
+            <div id="message-text"></div>
+
+        </div>
+
+    </main>
+
+
+    <!-- ========================= -->
+    <!--           MÚSICA            -->
+    <!-- ========================= -->
+
+    <audio id="music" preload="auto">
+
+        <source
+            src="music/el-tesoro.mp3"
+            type="audio/mpeg"
+        >
+
+        Tu navegador no soporta audio HTML5.
+
+    </audio>
+
+
+    <!-- ========================= -->
+    <!--        SCRIPT PRINCIPAL     -->
+    <!-- ========================= -->
+
+    <script src="main.js"></script>
+
+
+    <!-- ========================= -->
+    <!--       CONTROL DE MÚSICA     -->
+    <!-- ========================= -->
+
+    <script>
+
+        const startButton = document.getElementById("start");
+        const music = document.getElementById("music");
+
+        startButton.addEventListener("click", function () {
+
+            // Comenzar la canción desde el principio
+            music.currentTime = 0;
+
+            // Comenzar con volumen bajo
+            music.volume = 0;
+
+            // Reproducir la canción
+            music.play()
+                .then(() => {
+
+                    // Entrada progresiva de la música
+                    let volume = 0;
+
+                    const fadeIn = setInterval(() => {
+
+                        volume += 0.02;
+
+                        if (volume >= 1) {
+
+                            volume = 1;
+
+                            clearInterval(fadeIn);
+
+                        }
+
+                        music.volume = volume;
+
+                    }, 100);
+
+                })
+                .catch((error) => {
+
+                    console.log(
+                        "No se pudo reproducir la música:",
+                        error
+                    );
+
+                });
+
+        }, { once: true });
+
+    </script>
+
+</body>
+
+</html>
