@@ -1,22 +1,55 @@
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
+
 html,
 body {
-    margin: 0;
-    padding: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: black;
-    font-family: Arial, sans-serif;
 }
 
-#galaxy {
+
+body {
+    background: #000;
+    color: #fff;
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+}
+
+
+/* ===================================================== */
+/* CANVAS */
+/* ===================================================== */
+
+#canvas {
     position: fixed;
     inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    background: #000;
+
+    opacity: 0;
+
+    transition:
+        opacity 3s ease;
+
+    z-index: 1;
 }
+
+
+/* ===================================================== */
+/* INTRO */
+/* ===================================================== */
 
 #intro {
     position: fixed;
@@ -24,47 +57,269 @@ body {
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+
     align-items: center;
+    justify-content: center;
 
-    z-index: 10;
-
-    color: white;
     text-align: center;
 
-    background: black;
+    padding: 30px;
 
-    transition: opacity 1.5s ease;
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(35, 28, 5, 0.35) 0%,
+            rgba(0, 0, 0, 0.92) 55%,
+            #000 100%
+        );
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transition:
+        opacity 1.8s ease,
+        visibility 1.8s ease;
+
+    z-index: 10;
 }
+
+
+#intro.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+
+/* ===================================================== */
+/* FLOR DE INTRO */
+/* ===================================================== */
+
+.flower-icon {
+    font-size: 110px;
+
+    line-height: 1;
+
+    margin-bottom: 28px;
+
+    filter:
+        drop-shadow(
+            0 0 20px
+            rgba(255, 210, 40, 0.25)
+        );
+
+    animation:
+        flowerFloat 4s ease-in-out infinite;
+}
+
+
+@keyframes flowerFloat {
+
+    0%,
+    100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(-8px);
+    }
+}
+
+
+/* ===================================================== */
+/* TITULO */
+/* ===================================================== */
 
 #intro h1 {
-    font-size: 42px;
-    font-weight: 300;
-    margin-bottom: 30px;
+    color: #fff;
+
+    font-weight: 400;
+
+    font-size:
+        clamp(42px, 6vw, 68px);
+
+    line-height: 1.08;
+
+    letter-spacing: 1px;
+
+    text-shadow:
+        0 0 18px
+        rgba(255, 255, 255, 0.18);
+
+    margin-bottom: 38px;
 }
 
+
+/* ===================================================== */
+/* BOTÓN */
+/* ===================================================== */
+
 #start {
-    padding: 14px 28px;
+    appearance: none;
 
-    border: 1px solid white;
-    border-radius: 30px;
+    border: 1px solid
+        rgba(255, 220, 90, 0.65);
 
-    background: transparent;
-    color: white;
+    background:
+        rgba(255, 215, 50, 0.08);
 
-    font-size: 16px;
+    color: #fff;
+
+    padding:
+        15px 30px;
+
+    border-radius: 999px;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 17px;
+
+    letter-spacing: 0.5px;
 
     cursor: pointer;
 
-    transition: 0.3s;
+    transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
+
 
 #start:hover {
-    background: white;
-    color: black;
+    background:
+        rgba(255, 215, 50, 0.16);
+
+    border-color:
+        rgba(255, 220, 90, 0.9);
+
+    box-shadow:
+        0 0 25px
+        rgba(255, 210, 50, 0.12);
+
+    transform:
+        translateY(-2px);
 }
 
-.hidden {
+
+#start:active {
+    transform:
+        translateY(0);
+}
+
+
+/* ===================================================== */
+/* MENSAJE */
+/* ===================================================== */
+
+#message {
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 8%;
+
+    width: 90%;
+
+    max-width: 900px;
+
+    transform:
+        translate(-50%, 25px);
+
+    color: #fff;
+
+    text-align: center;
+
+    font-size:
+        clamp(19px, 2.7vw, 28px);
+
+    line-height: 1.7;
+
+    font-weight: 400;
+
+    letter-spacing: 0.2px;
+
     opacity: 0;
-    pointer-events: none;
+
+    visibility: hidden;
+
+    transition:
+        opacity 1.5s ease,
+        transform 1.5s ease,
+        visibility 1.5s ease;
+
+    z-index: 5;
+
+    text-shadow:
+        0 2px 12px
+        rgba(0, 0, 0, 0.9);
+}
+
+
+#message.visible {
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        translate(-50%, 0);
+}
+
+
+#message-text {
+    color: #fff;
+}
+
+
+/* ===================================================== */
+/* RESPONSIVE */
+/* ===================================================== */
+
+@media (max-width: 600px) {
+
+    .flower-icon {
+        font-size: 95px;
+
+        margin-bottom: 24px;
+    }
+
+
+    #intro {
+        padding: 20px;
+    }
+
+
+    #intro h1 {
+        font-size: 36px;
+
+        line-height: 1.1;
+
+        margin-bottom: 32px;
+    }
+
+
+    #start {
+        font-size: 16px;
+
+        padding:
+            13px 25px;
+    }
+
+
+    #message {
+        width: 88%;
+
+        bottom: 9%;
+
+        font-size: 19px;
+
+        line-height: 1.6;
+    }
+
 }
