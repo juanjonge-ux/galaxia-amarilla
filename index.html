@@ -2,73 +2,76 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
         name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Para vos,Bella Durmiente 🌻</title>
+    <title>Para vos, Bella Durmiente 🌻</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
 
 <body>
 
-    <main id="app">
+    <!-- ========================= -->
+    <!--          INTRO            -->
+    <!-- ========================= -->
 
-        <!-- ========================= -->
-        <!--      PANTALLA INICIAL      -->
-        <!-- ========================= -->
+    <div id="intro">
 
-        <section id="intro">
-
-            <div class="intro-content">
-
-                <div class="flower-icon">
-                    🌻
-                </div>
-
-                <h1>
-                    Para ti<br>
-                    Bella Durmiente
-                </h1>
-
-                <button id="start" type="button">
-                    Toca para comenzar
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- ========================= -->
-        <!--      ANIMACIÓN / CANVAS    -->
-        <!-- ========================= -->
-
-        <canvas id="canvas"></canvas>
-
-
-        <!-- ========================= -->
-        <!--          MENSAJE           -->
-        <!-- ========================= -->
-
-        <div id="message">
-
-            <div id="message-text"></div>
-
+        <div class="flower-icon">
+            🌻
         </div>
 
-    </main>
+        <h1>
+            Para vos<br>
+            Bella Durmiente
+        </h1>
+
+        <button
+            id="start"
+            type="button"
+        >
+            Toca para comenzar
+        </button>
+
+    </div>
 
 
     <!-- ========================= -->
-    <!--           MÚSICA            -->
+    <!--          CANVAS            -->
     <!-- ========================= -->
 
-    <audio id="music" preload="auto">
+    <canvas id="canvas"></canvas>
+
+
+    <!-- ========================= -->
+    <!--          MENSAJE           -->
+    <!-- ========================= -->
+
+    <div id="message">
+
+        <div id="message-text"></div>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!--           MÚSICA           -->
+    <!-- ========================= -->
+
+    <audio
+        id="music"
+        preload="auto"
+    >
 
         <source
             src="music/el-tesoro.mp3"
@@ -81,63 +84,77 @@
 
 
     <!-- ========================= -->
-    <!--        SCRIPT PRINCIPAL     -->
+    <!--       SCRIPT PRINCIPAL     -->
     <!-- ========================= -->
 
-    <script src="main.js"></script>
+    <script src="main.js?v=2"></script>
 
 
     <!-- ========================= -->
-    <!--       CONTROL DE MÚSICA     -->
+    <!--       CONTROL DE MÚSICA    -->
     <!-- ========================= -->
 
     <script>
 
-        const startButton = document.getElementById("start");
-        const music = document.getElementById("music");
+        const startButton =
+            document.getElementById("start");
 
-        startButton.addEventListener("click", function () {
+        const music =
+            document.getElementById("music");
 
-            // Comenzar la canción desde el principio
-            music.currentTime = 0;
 
-            // Comenzar con volumen bajo
-            music.volume = 0;
+        startButton.addEventListener(
+            "click",
+            function () {
 
-            // Reproducir la canción
-            music.play()
-                .then(() => {
+                music.currentTime = 0;
 
-                    // Entrada progresiva de la música
-                    let volume = 0;
+                music.volume = 0;
 
-                    const fadeIn = setInterval(() => {
 
-                        volume += 0.02;
+                music.play()
+                    .then(() => {
 
-                        if (volume >= 1) {
+                        let volume = 0;
 
-                            volume = 1;
 
-                            clearInterval(fadeIn);
+                        const fadeIn =
+                            setInterval(() => {
 
-                        }
+                                volume += 0.02;
 
-                        music.volume = volume;
 
-                    }, 100);
+                                if (volume >= 1) {
 
-                })
-                .catch((error) => {
+                                    volume = 1;
 
-                    console.log(
-                        "No se pudo reproducir la música:",
-                        error
-                    );
+                                    clearInterval(
+                                        fadeIn
+                                    );
 
-                });
+                                }
 
-        }, { once: true });
+
+                                music.volume =
+                                    volume;
+
+                            }, 100);
+
+                    })
+                    .catch((error) => {
+
+                        console.log(
+                            "No se pudo reproducir la música:",
+                            error
+                        );
+
+                    });
+
+            },
+            {
+                once: true
+            }
+        );
 
     </script>
 
