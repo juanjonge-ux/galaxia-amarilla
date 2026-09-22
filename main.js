@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js";
 
 
 // ========================================
@@ -77,6 +77,8 @@ const stars = new THREE.Points(
 );
 
 scene.add(stars);
+
+
 // ========================================
 // NEBULOSA
 // ========================================
@@ -91,23 +93,21 @@ const nebulaPositions = new Float32Array(
 
 for (let i = 0; i < nebulaParticles; i++) {
 
-    const angle = Math.random() * Math.PI * 2;
+    const angle =
+        Math.random() * Math.PI * 2;
 
     const radius =
         2 +
         Math.random() * 5;
 
     const x =
-        Math.cos(angle) *
-        radius;
+        Math.cos(angle) * radius;
 
     const y =
-        (Math.random() - 0.5) *
-        2;
+        (Math.random() - 0.5) * 2;
 
     const z =
-        Math.sin(angle) *
-        radius;
+        Math.sin(angle) * radius;
 
     nebulaPositions[i * 3] =
         x;
@@ -117,6 +117,7 @@ for (let i = 0; i < nebulaParticles; i++) {
 
     nebulaPositions[i * 3 + 2] =
         z;
+
 }
 
 nebulaGeometry.setAttribute(
@@ -146,20 +147,23 @@ scene.add(nebula);
 // NÚCLEO AMARILLO
 // ========================================
 
-const coreGeometry = new THREE.SphereGeometry(
-    1.2,
-    64,
-    64
-);
+const coreGeometry =
+    new THREE.SphereGeometry(
+        1.2,
+        64,
+        64
+    );
 
-const coreMaterial = new THREE.MeshBasicMaterial({
-    color: 0xffd84d
-});
+const coreMaterial =
+    new THREE.MeshBasicMaterial({
+        color: 0xffd84d
+    });
 
-const core = new THREE.Mesh(
-    coreGeometry,
-    coreMaterial
-);
+const core =
+    new THREE.Mesh(
+        coreGeometry,
+        coreMaterial
+    );
 
 scene.add(core);
 
@@ -168,7 +172,8 @@ scene.add(core);
 // GRUPO DEL ANILLO
 // ========================================
 
-const ringGroup = new THREE.Group();
+const ringGroup =
+    new THREE.Group();
 
 scene.add(ringGroup);
 
@@ -177,21 +182,24 @@ scene.add(ringGroup);
 // ANILLO
 // ========================================
 
-const ringGeometry = new THREE.TorusGeometry(
-    1.8,
-    0.08,
-    16,
-    100
-);
+const ringGeometry =
+    new THREE.TorusGeometry(
+        1.8,
+        0.08,
+        16,
+        100
+    );
 
-const ringMaterial = new THREE.MeshBasicMaterial({
-    color: 0xffd84d
-});
+const ringMaterial =
+    new THREE.MeshBasicMaterial({
+        color: 0xffd84d
+    });
 
-const ring = new THREE.Mesh(
-    ringGeometry,
-    ringMaterial
-);
+const ring =
+    new THREE.Mesh(
+        ringGeometry,
+        ringMaterial
+    );
 
 
 // ========================================
@@ -199,7 +207,8 @@ const ring = new THREE.Mesh(
 // ========================================
 
 // Lo inclinamos
-ring.rotation.x = THREE.MathUtils.degToRad(65);
+ring.rotation.x =
+    THREE.MathUtils.degToRad(65);
 
 // Lo hacemos ligeramente elíptico
 ring.scale.z = 0.45;
@@ -215,7 +224,9 @@ ringGroup.add(ring);
 
 function animate() {
 
-    requestAnimationFrame(animate);
+    requestAnimationFrame(
+        animate
+    );
 
 
     // -------------------------------
@@ -224,7 +235,14 @@ function animate() {
 
     stars.rotation.y += 0.0005;
 
-nebula.rotation.y += 0.0008;
+
+    // -------------------------------
+    // NEBULOSA
+    // -------------------------------
+
+    nebula.rotation.y += 0.0008;
+
+
     // -------------------------------
     // MOVIMIENTO DEL ANILLO
     // -------------------------------
@@ -232,7 +250,9 @@ nebula.rotation.y += 0.0008;
     ringGroup.rotation.y += 0.008;
 
     ringGroup.rotation.x =
-        Math.sin(Date.now() * 0.0005) * 0.25;
+        Math.sin(
+            Date.now() * 0.0005
+        ) * 0.25;
 
 
     // -------------------------------
@@ -241,7 +261,9 @@ nebula.rotation.y += 0.0008;
 
     const pulse =
         1 +
-        Math.sin(Date.now() * 0.002) * 0.03;
+        Math.sin(
+            Date.now() * 0.002
+        ) * 0.03;
 
     core.scale.set(
         pulse,
@@ -258,6 +280,7 @@ nebula.rotation.y += 0.0008;
         scene,
         camera
     );
+
 }
 
 animate();
@@ -283,7 +306,10 @@ window.addEventListener(
         );
 
         renderer.setPixelRatio(
-            Math.min(window.devicePixelRatio, 2)
+            Math.min(
+                window.devicePixelRatio,
+                2
+            )
         );
 
     }
@@ -305,7 +331,9 @@ startButton.addEventListener(
     "click",
     () => {
 
-        intro.classList.add("hidden");
+        intro.classList.add(
+            "hidden"
+        );
 
     }
 );
