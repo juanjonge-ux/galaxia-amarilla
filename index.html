@@ -21,6 +21,7 @@
 
 <body>
 
+
     <!-- ========================= -->
     <!--          INTRO            -->
     <!-- ========================= -->
@@ -74,7 +75,7 @@
     >
 
         <source
-            src="music/el-tesoro.mp3"
+            src="./music/el-tesoro.mp3"
             type="audio/mpeg"
         >
 
@@ -87,7 +88,10 @@
     <!--       SCRIPT PRINCIPAL     -->
     <!-- ========================= -->
 
-    <script src="main.js?v=2"></script>
+    <script
+        type="module"
+        src="./main.js?v=3"
+    ></script>
 
 
     <!-- ========================= -->
@@ -103,60 +107,77 @@
             document.getElementById("music");
 
 
-        startButton.addEventListener(
-            "click",
-            function () {
+        if (startButton && music) {
 
-                music.currentTime = 0;
+            startButton.addEventListener(
+                "click",
+                function () {
 
-                music.volume = 0;
+                    music.currentTime = 0;
 
-
-                music.play()
-                    .then(() => {
-
-                        let volume = 0;
+                    music.volume = 0;
 
 
-                        const fadeIn =
-                            setInterval(() => {
-
-                                volume += 0.02;
+                    const playPromise =
+                        music.play();
 
 
-                                if (volume >= 1) {
+                    if (playPromise !== undefined) {
 
-                                    volume = 1;
+                        playPromise
+                            .then(() => {
 
-                                    clearInterval(
-                                        fadeIn
+                                let volume = 0;
+
+                                const fadeIn =
+                                    setInterval(
+                                        () => {
+
+                                            volume += 0.02;
+
+                                            if (
+                                                volume >= 1
+                                            ) {
+
+                                                volume = 1;
+
+                                                clearInterval(
+                                                    fadeIn
+                                                );
+
+                                            }
+
+                                            music.volume =
+                                                volume;
+
+                                        },
+                                        100
+                                    );
+
+                            })
+                            .catch(
+                                (error) => {
+
+                                    console.log(
+                                        "No se pudo reproducir la música:",
+                                        error
                                     );
 
                                 }
+                            );
 
+                    }
 
-                                music.volume =
-                                    volume;
+                },
+                {
+                    once: true
+                }
+            );
 
-                            }, 100);
-
-                    })
-                    .catch((error) => {
-
-                        console.log(
-                            "No se pudo reproducir la música:",
-                            error
-                        );
-
-                    });
-
-            },
-            {
-                once: true
-            }
-        );
+        }
 
     </script>
+
 
 </body>
 
