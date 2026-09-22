@@ -2,182 +2,117 @@
 <html lang="es">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para vos, Bella Durmiente 🌻</title>
-
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
 
     <!-- ========================= -->
     <!--          INTRO            -->
     <!-- ========================= -->
 
     <div id="intro">
-
-        <div class="flower-icon">
-            🌻
-        </div>
+        <div class="flower-icon">🌻</div>
 
         <h1>
             Para vos<br>
             Bella Durmiente
         </h1>
 
-        <button
-            id="start"
-            type="button"
-        >
+        <button id="start" type="button">
             Toca para comenzar
         </button>
-
     </div>
 
 
     <!-- ========================= -->
-    <!--          CANVAS            -->
+    <!--          CANVAS           -->
     <!-- ========================= -->
 
     <canvas id="canvas"></canvas>
 
 
     <!-- ========================= -->
-    <!--          MENSAJE           -->
+    <!--          MENSAJE          -->
     <!-- ========================= -->
 
     <div id="message">
-
-        <div id="message-text"></div>
-
+        <div id="message-text">
+            <!-- FRASE DE EL MATÓ A UN POLICÍA MOTORIZADO -->
+            <p class="frase-linea1">Cuidarte siempre a vos en la derrota</p>
+            <p class="frase-linea2">Hasta el final, del final</p>
+        </div>
     </div>
 
 
     <!-- ========================= -->
-    <!--           MÚSICA           -->
+    <!--           MÚSICA          -->
     <!-- ========================= -->
 
-    <audio
-        id="music"
-        preload="auto"
-    >
-
-        <source
-            src="./music/el-tesoro.mp3"
-            type="audio/mpeg"
-        >
-
+    <audio id="music" preload="auto">
+        <source src="./music/el-tesoro.mp3" type="audio/mpeg">
         Tu navegador no soporta audio HTML5.
-
     </audio>
 
 
     <!-- ========================= -->
-    <!--       SCRIPT PRINCIPAL     -->
+    <!--       SCRIPT PRINCIPAL    -->
     <!-- ========================= -->
 
-    <script
-        type="module"
-        src="./main.js?v=3"
-    ></script>
+    <script type="module" src="./main.js?v=3"></script>
 
 
     <!-- ========================= -->
-    <!--       CONTROL DE MÚSICA    -->
+    <!--       CONTROL DE MÚSICA   -->
     <!-- ========================= -->
 
     <script>
-
-        const startButton =
-            document.getElementById("start");
-
-        const music =
-            document.getElementById("music");
-
+        const startButton = document.getElementById("start");
+        const music = document.getElementById("music");
+        const messageDiv = document.getElementById("message");
 
         if (startButton && music) {
-
             startButton.addEventListener(
                 "click",
                 function () {
-
-                    music.currentTime = 0;
-
-                    music.volume = 0;
-
-
-                    const playPromise =
-                        music.play();
-
-
-                    if (playPromise !== undefined) {
-
-                        playPromise
-                            .then(() => {
-
-                                let volume = 0;
-
-                                const fadeIn =
-                                    setInterval(
-                                        () => {
-
-                                            volume += 0.02;
-
-                                            if (
-                                                volume >= 1
-                                            ) {
-
-                                                volume = 1;
-
-                                                clearInterval(
-                                                    fadeIn
-                                                );
-
-                                            }
-
-                                            music.volume =
-                                                volume;
-
-                                        },
-                                        100
-                                    );
-
-                            })
-                            .catch(
-                                (error) => {
-
-                                    console.log(
-                                        "No se pudo reproducir la música:",
-                                        error
-                                    );
-
-                                }
-                            );
-
+                    // 1. Mostrar la frase con animación al presionar iniciar
+                    if (messageDiv) {
+                        setTimeout(() => {
+                            messageDiv.classList.add("visible");
+                        }, 500); // Aparece 0.5s después de tocar
                     }
 
+                    // 2. Control de Audio con Fade-in
+                    music.currentTime = 0;
+                    music.volume = 0;
+
+                    const playPromise = music.play();
+
+                    if (playPromise !== undefined) {
+                        playPromise
+                            .then(() => {
+                                let volume = 0;
+                                const fadeIn = setInterval(() => {
+                                    volume += 0.02;
+                                    if (volume >= 1) {
+                                        volume = 1;
+                                        clearInterval(fadeIn);
+                                    }
+                                    music.volume = volume;
+                                }, 100);
+                            })
+                            .catch((error) => {
+                                console.log("No se pudo reproducir la música:", error);
+                            });
+                    }
                 },
-                {
-                    once: true
-                }
+                { once: true }
             );
-
         }
-
     </script>
-
 
 </body>
 
