@@ -4,322 +4,178 @@
     box-sizing: border-box;
 }
 
-
 html,
 body {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    background: #000;
 }
-
 
 body {
-    background: #000;
-    color: #fff;
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
+    position: relative;
+    font-family: Arial, sans-serif;
 }
 
 
-/* ===================================================== */
-/* CANVAS */
-/* ===================================================== */
+/* ========================= */
+/*          CANVAS           */
+/* ========================= */
 
 #canvas {
+    position: fixed;
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: block;
+
+    z-index: 1;
+}
+
+
+/* ========================= */
+/*           INTRO           */
+/* ========================= */
+
+#intro {
     position: fixed;
     inset: 0;
 
     width: 100%;
     height: 100%;
 
-    display: block;
-
-    background: #000;
-
-    opacity: 0;
-
-    transition:
-        opacity 3s ease;
-
-    z-index: 1;
-}
-
-
-/* ===================================================== */
-/* INTRO */
-/* ===================================================== */
-
-#intro {
-    position: fixed;
-    inset: 0;
-
     display: flex;
     flex-direction: column;
 
-    align-items: center;
     justify-content: center;
+    align-items: center;
 
     text-align: center;
 
-    padding: 30px;
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(35, 28, 5, 0.35) 0%,
-            rgba(0, 0, 0, 0.92) 55%,
-            #000 100%
-        );
-
-    opacity: 1;
-
-    visibility: visible;
-
-    transition:
-        opacity 1.8s ease,
-        visibility 1.8s ease;
+    background: #000;
 
     z-index: 10;
+
+    transition:
+        opacity 1s ease,
+        visibility 1s ease;
 }
 
 
-#intro.hidden {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-
-/* ===================================================== */
-/* FLOR DE INTRO */
-/* ===================================================== */
+/* ========================= */
+/*          GIRASOL          */
+/* ========================= */
 
 .flower-icon {
-    font-size: 110px;
+    font-size: 70px;
 
-    line-height: 1;
-
-    margin-bottom: 28px;
-
-    filter:
-        drop-shadow(
-            0 0 20px
-            rgba(255, 210, 40, 0.25)
-        );
-
-    animation:
-        flowerFloat 4s ease-in-out infinite;
+    margin-bottom: 25px;
 }
 
 
-@keyframes flowerFloat {
-
-    0%,
-    100% {
-        transform:
-            translateY(0);
-    }
-
-    50% {
-        transform:
-            translateY(-8px);
-    }
-}
-
-
-/* ===================================================== */
-/* TITULO */
-/* ===================================================== */
+/* ========================= */
+/*           TÍTULO          */
+/* ========================= */
 
 #intro h1 {
-    color: #fff;
+    color: white;
+
+    font-size: clamp(
+        32px,
+        6vw,
+        64px
+    );
+
+    line-height: 1.15;
 
     font-weight: 400;
 
-    font-size:
-        clamp(42px, 6vw, 68px);
-
-    line-height: 1.08;
-
-    letter-spacing: 1px;
-
-    text-shadow:
-        0 0 18px
-        rgba(255, 255, 255, 0.18);
-
-    margin-bottom: 38px;
+    margin-bottom: 40px;
 }
 
 
-/* ===================================================== */
-/* BOTÓN */
-/* ===================================================== */
+/* ========================= */
+/*          BOTÓN            */
+/* ========================= */
 
 #start {
-    appearance: none;
+    border: 1px solid #ffd84d;
 
-    border: 1px solid
-        rgba(255, 220, 90, 0.65);
+    background: transparent;
 
-    background:
-        rgba(255, 215, 50, 0.08);
+    color: #ffd84d;
 
-    color: #fff;
+    padding: 14px 28px;
 
-    padding:
-        15px 30px;
+    border-radius: 30px;
 
-    border-radius: 999px;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-size: 17px;
-
-    letter-spacing: 0.5px;
+    font-size: 16px;
 
     cursor: pointer;
 
     transition:
         background 0.3s ease,
-        border-color 0.3s ease,
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
+        color 0.3s ease,
+        transform 0.3s ease;
 }
-
 
 #start:hover {
-    background:
-        rgba(255, 215, 50, 0.16);
+    background: #ffd84d;
 
-    border-color:
-        rgba(255, 220, 90, 0.9);
+    color: #000;
 
-    box-shadow:
-        0 0 25px
-        rgba(255, 210, 50, 0.12);
-
-    transform:
-        translateY(-2px);
+    transform: scale(1.05);
 }
 
 
-#start:active {
-    transform:
-        translateY(0);
-}
+/* ========================= */
+/*       INTRO OCULTO        */
+/* ========================= */
 
-
-/* ===================================================== */
-/* MENSAJE */
-/* ===================================================== */
-
-#message {
-    position: fixed;
-
-    left: 50%;
-
-    bottom: 8%;
-
-    width: 90%;
-
-    max-width: 900px;
-
-    transform:
-        translate(-50%, 25px);
-
-    color: #fff;
-
-    text-align: center;
-
-    font-size:
-        clamp(19px, 2.7vw, 28px);
-
-    line-height: 1.7;
-
-    font-weight: 400;
-
-    letter-spacing: 0.2px;
-
+#intro.hidden {
     opacity: 0;
 
     visibility: hidden;
 
-    transition:
-        opacity 1.5s ease,
-        transform 1.5s ease,
-        visibility 1.5s ease;
-
-    z-index: 5;
-
-    text-shadow:
-        0 2px 12px
-        rgba(0, 0, 0, 0.9);
+    pointer-events: none;
 }
 
 
-#message.visible {
-    opacity: 1;
+/* ========================= */
+/*          MENSAJE          */
+/* ========================= */
 
-    visibility: visible;
+#message {
+    position: fixed;
 
-    transform:
-        translate(-50%, 0);
+    inset: 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    z-index: 5;
+
+    pointer-events: none;
+
+    color: white;
+
+    text-align: center;
 }
 
 
 #message-text {
-    color: #fff;
-}
+    max-width: 80%;
 
+    font-size: clamp(
+        24px,
+        5vw,
+        52px
+    );
 
-/* ===================================================== */
-/* RESPONSIVE */
-/* ===================================================== */
-
-@media (max-width: 600px) {
-
-    .flower-icon {
-        font-size: 95px;
-
-        margin-bottom: 24px;
-    }
-
-
-    #intro {
-        padding: 20px;
-    }
-
-
-    #intro h1 {
-        font-size: 36px;
-
-        line-height: 1.1;
-
-        margin-bottom: 32px;
-    }
-
-
-    #start {
-        font-size: 16px;
-
-        padding:
-            13px 25px;
-    }
-
-
-    #message {
-        width: 88%;
-
-        bottom: 9%;
-
-        font-size: 19px;
-
-        line-height: 1.6;
-    }
-
+    line-height: 1.3;
 }
