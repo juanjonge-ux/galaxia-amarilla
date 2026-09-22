@@ -2,10 +2,15 @@ import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.m
 
 
 // ========================================
-// CONFIGURACIÓN
+// CANVAS
 // ========================================
 
-const container = document.getElementById("galaxy");
+const canvas = document.getElementById("canvas");
+
+
+// ========================================
+// ESCENA
+// ========================================
 
 const scene = new THREE.Scene();
 
@@ -24,7 +29,9 @@ camera.position.set(0, 0, 10);
 // ========================================
 
 const renderer = new THREE.WebGLRenderer({
-    antialias: true
+    canvas: canvas,
+    antialias: true,
+    alpha: true
 });
 
 renderer.setSize(
@@ -35,8 +42,6 @@ renderer.setSize(
 renderer.setPixelRatio(
     Math.min(window.devicePixelRatio, 2)
 );
-
-container.appendChild(renderer.domElement);
 
 
 // ========================================
@@ -80,34 +85,45 @@ scene.add(stars);
 
 
 // ========================================
-// NEBULOSA
+// NEBULOSA AMARILLA
 // ========================================
 
-const nebulaGeometry = new THREE.BufferGeometry();
+const nebulaGeometry =
+    new THREE.BufferGeometry();
 
 const nebulaParticles = 2500;
 
-const nebulaPositions = new Float32Array(
-    nebulaParticles * 3
-);
+const nebulaPositions =
+    new Float32Array(
+        nebulaParticles * 3
+    );
 
-for (let i = 0; i < nebulaParticles; i++) {
+for (
+    let i = 0;
+    i < nebulaParticles;
+    i++
+) {
 
     const angle =
-        Math.random() * Math.PI * 2;
+        Math.random() *
+        Math.PI *
+        2;
 
     const radius =
         2 +
         Math.random() * 5;
 
     const x =
-        Math.cos(angle) * radius;
+        Math.cos(angle) *
+        radius;
 
     const y =
-        (Math.random() - 0.5) * 2;
+        (Math.random() - 0.5) *
+        2;
 
     const z =
-        Math.sin(angle) * radius;
+        Math.sin(angle) *
+        radius;
 
     nebulaPositions[i * 3] =
         x;
@@ -128,17 +144,24 @@ nebulaGeometry.setAttribute(
     )
 );
 
-const nebulaMaterial = new THREE.PointsMaterial({
-    color: 0xffd84d,
-    size: 0.035,
-    transparent: true,
-    opacity: 0.45
-});
+const nebulaMaterial =
+    new THREE.PointsMaterial({
 
-const nebula = new THREE.Points(
-    nebulaGeometry,
-    nebulaMaterial
-);
+        color: 0xffd84d,
+
+        size: 0.035,
+
+        transparent: true,
+
+        opacity: 0.45
+
+    });
+
+const nebula =
+    new THREE.Points(
+        nebulaGeometry,
+        nebulaMaterial
+    );
 
 scene.add(nebula);
 
@@ -206,15 +229,11 @@ const ring =
 // FORMA DEL ANILLO
 // ========================================
 
-// Lo inclinamos
 ring.rotation.x =
     THREE.MathUtils.degToRad(65);
 
-// Lo hacemos ligeramente elíptico
 ring.scale.z = 0.45;
 
-
-// Añadimos el anillo al grupo
 ringGroup.add(ring);
 
 
@@ -229,25 +248,22 @@ function animate() {
     );
 
 
-    // -------------------------------
     // ESTRELLAS
-    // -------------------------------
 
-    stars.rotation.y += 0.0005;
+    stars.rotation.y +=
+        0.0005;
 
 
-    // -------------------------------
     // NEBULOSA
-    // -------------------------------
 
-    nebula.rotation.y += 0.0008;
+    nebula.rotation.y +=
+        0.0008;
 
 
-    // -------------------------------
-    // MOVIMIENTO DEL ANILLO
-    // -------------------------------
+    // ANILLO
 
-    ringGroup.rotation.y += 0.008;
+    ringGroup.rotation.y +=
+        0.008;
 
     ringGroup.rotation.x =
         Math.sin(
@@ -255,9 +271,7 @@ function animate() {
         ) * 0.25;
 
 
-    // -------------------------------
-    // PEQUEÑA RESPIRACIÓN DEL NÚCLEO
-    // -------------------------------
+    // RESPIRACIÓN DEL NÚCLEO
 
     const pulse =
         1 +
@@ -272,9 +286,7 @@ function animate() {
     );
 
 
-    // -------------------------------
     // RENDERIZAR
-    // -------------------------------
 
     renderer.render(
         scene,
@@ -327,13 +339,17 @@ const intro =
     document.getElementById("intro");
 
 
-startButton.addEventListener(
-    "click",
-    () => {
+if (startButton && intro) {
 
-        intro.classList.add(
-            "hidden"
-        );
+    startButton.addEventListener(
+        "click",
+        () => {
 
-    }
-);
+            intro.classList.add(
+                "hidden"
+            );
+
+        }
+    );
+
+}
